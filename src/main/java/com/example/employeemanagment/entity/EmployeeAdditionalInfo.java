@@ -1,5 +1,6 @@
 package com.example.employeemanagment.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ public class EmployeeAdditionalInfo {
     @Column(name = "employee_id", nullable = false)
     private Integer id;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer"})
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "employee_id", nullable = false)

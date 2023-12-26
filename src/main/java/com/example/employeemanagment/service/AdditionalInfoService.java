@@ -19,4 +19,8 @@ public class AdditionalInfoService {
         employeeAdditionalInfoRepository.save(employeeAdditionalInfo);
         return ResponseEntity.ok("Данные сотрудника успешно добавлены");
     }
+    public EmployeeAdditionalInfo readEntityDb(Long id) {
+        EmployeeAdditionalInfo employeeAdditionalInfo = employeeAdditionalInfoRepository.findById(id).get();
+        return employeeAdditionalInfo;
+    }
 }
