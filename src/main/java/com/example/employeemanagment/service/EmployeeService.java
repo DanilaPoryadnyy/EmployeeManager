@@ -2,7 +2,9 @@ package com.example.employeemanagment.service;
 
 import com.example.employeemanagment.DTO.EmployeeDTO;
 import com.example.employeemanagment.entity.Employee;
+import com.example.employeemanagment.entity.EmployeeAdditionalInfo;
 import com.example.employeemanagment.repository.DepartmentRepository;
+import com.example.employeemanagment.repository.EmployeeAdditionalInfoRepository;
 import com.example.employeemanagment.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import java.util.List;
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
+    private final EmployeeAdditionalInfoRepository employeeAdditionalInfoRepository;
 
     public Employee findBy(long id) {
         return employeeRepository.findById(id)
@@ -30,6 +33,9 @@ public class EmployeeService {
         employee.setName(employeeDTO.getName());
         employee.setSurname(employeeDTO.getSurname());
         employee.setDepartments(departmentRepository.findById(employeeDTO.getIdDepartments()).get());
+        EmployeeAdditionalInfo employeeAdditionalInfo = new EmployeeAdditionalInfo();
+        employeeAdditionalInfo.setEmployees(employee);
+        employeeAdditionalInfoRepository.save(employeeAdditionalInfo);
         employeeRepository.save(employee);
         return ResponseEntity.ok("Данные сотрудника успешно добавлены");
     }
